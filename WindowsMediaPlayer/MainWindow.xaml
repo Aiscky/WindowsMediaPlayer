@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WindowsMediaPlayer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="WindowsMediaPlayer" Height="350" Width="525">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Images">
+                <TabControl>
+                    <TabItem Header="test1">
+                        
+                    </TabItem>
+                    <TabItem Header="test2">
+                        
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Sounds">
+            </TabItem>
+            <TabItem Header="Videos">
+            </TabItem>
+            <TabItem Header="Playlists">
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
