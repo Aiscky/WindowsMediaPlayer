@@ -10,17 +10,9 @@
     <Grid>
         <TabControl>
             <TabItem Header="Images">
-                <TabControl>
-                    <TabItem Header="test1">
-                        
-                    </TabItem>
-                    <TabItem Header="test2">
-                        
-                    </TabItem>
-                </TabControl>
+                <View:PlayerView x:Name="PlayerView"/>
             </TabItem>
             <TabItem Header="Sounds">
-                <View:PlayerView x:Name="PlayerView"/>
             </TabItem>
             <TabItem Header="Videos">
             </TabItem>

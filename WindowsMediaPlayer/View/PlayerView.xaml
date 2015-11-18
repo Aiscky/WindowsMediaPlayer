@@ -12,9 +12,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <MediaElement Name="mediaPlayer" Grid.Row="0" LoadedBehavior="Manual" Stretch="None"/>
-
-        <StatusBar Grid.Row="1">
+        <ContentPresenter Grid.Row="0" Content="{Binding MediaElement}" />
+        <!--<MediaElement Source="C:\Users\Thibault\Downloads\Sample.mp4" Name="myMediaElement" LoadedBehavior="Play"/>-->
+        
+        <TextBlock Grid.Row="1" Text="{Binding TextBlock}" />
+        
+        <!--<StatusBar Grid.Row="1">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -33,7 +36,7 @@
             </StatusBar.ItemsPanel>
 
             <StatusBarItem Grid.Row="0" Grid.ColumnSpan="3"  HorizontalContentAlignment="Stretch">
-                <Slider Name="progressSlider" Thumb.DragStarted=""/>
+                <Slider Name="progressSlider"/>
             </StatusBarItem>
 
             <StatusBarItem Grid.Row="1" Grid.Column="0">
@@ -43,6 +46,7 @@
             <StatusBarItem Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Stretch">
                 <ProgressBar Name="mediaVolume"/>
             </StatusBarItem>
-        </StatusBar>
+            
+        </StatusBar>-->
     </Grid>
 </UserControl>
