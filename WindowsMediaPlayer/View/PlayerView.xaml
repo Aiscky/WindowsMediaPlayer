@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="WindowsMediaPlayer.View.PlayerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WindowsMediaPlayer.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <MediaElement Name="mediaPlayer" Grid.Row="0" LoadedBehavior="Manual" Stretch="None"/>
+
+        <StatusBar Grid.Row="1">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+
+            <StatusBarItem Grid.Row="0"  HorizontalContentAlignment="Stretch">
+                <Slider Name="progressSlider" Thumb.DragStarted=""/>
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Row="1">
+                <TextBlock Name="progressStatus">00:00:00</TextBlock>
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Row="1">
+                <ProgressBar Name="mediaVolume"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</UserControl>
