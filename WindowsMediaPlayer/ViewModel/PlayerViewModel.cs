@@ -38,11 +38,14 @@ namespace WindowsMediaPlayer.ViewModel
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timerTick;
 
-            /* */
-
             MediaElement = new MediaElement();
-            MediaElement.Source = new Uri(@"C:\Users\Thibault\Downloads\Sample.mp4");
             MediaElement.LoadedBehavior = MediaState.Manual;
+            MediaElement.Visibility = System.Windows.Visibility.Hidden;
+            try
+            {
+                MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "../../Ressources/PlayerBackground.png"));
+            }
+            catch { }
         }
 
         public static PlayerViewModel getInstance()
@@ -54,8 +57,47 @@ namespace WindowsMediaPlayer.ViewModel
 
         /* PLAY MEDIA FONCTIONS */
 
-        public void PlayMedia()
+        public void PlayMedia(Model.Media media)
         {
+            switch (media.type)
+            {
+                case Model.Media.MediaType.VIDEO:
+                    break;
+                case Model.Media.MediaType.IMAGE:
+                    break;
+                case Model.Media.MediaType.MUSIC:
+                    break;
+            }            
+        }
+
+        public void PlayVideo(Model.Media media)
+        {
+            this.MediaElement.Source = new Uri(media.Path);
+            this.MediaElement.Play();
+            this.MediaElement.Visibility = System.Windows.Visibility.Visible;
+            this.MediaImage.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        public void PlayMusic(Model.Media media)
+        {
+            this.MediaElement.Source = new Uri(media.Path);
+            this.MediaElement.Visibility = System.Windows.Visibility.Hidden;
+            this.MediaImage.Visibility = System.Windows.Visibility.Visible;
+            try
+            {
+                MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "../../Ressources/PlayerBackground.png"));
+            }
+            catch { }
+            this.MediaElement.Play();
+        }
+
+        public void PlayImage(Model.Media media)
+        {
+            try
+            {
+                this.MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(media.Path));
+            }
+            catch { }
 
         }
 
