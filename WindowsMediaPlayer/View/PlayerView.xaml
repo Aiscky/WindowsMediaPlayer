@@ -13,11 +13,9 @@
         </Grid.RowDefinitions>
 
         <ContentPresenter Grid.Row="0" Content="{Binding MediaElement}" />
-        <!--<MediaElement Source="C:\Users\Thibault\Downloads\Sample.mp4" Name="myMediaElement" LoadedBehavior="Play"/>-->
-        
-        <TextBlock Grid.Row="1" Text="{Binding TextBlock}" />
-        
-        <!--<StatusBar Grid.Row="1">
+        <ContentPresenter Grid.Row="0" Content="{Binding Image}" />
+
+        <StatusBar Grid.Row="1">
             <StatusBar.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid>
@@ -30,12 +28,13 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
 
-            <StatusBarItem Grid.Row="0" Grid.ColumnSpan="3"  HorizontalContentAlignment="Stretch">
+            <StatusBarItem Grid.Row="0" Grid.ColumnSpan="4"  HorizontalContentAlignment="Stretch">
                 <Slider Name="progressSlider"/>
             </StatusBarItem>
 
@@ -43,10 +42,18 @@
                 <TextBlock Name="progressStatus">00:00:00</TextBlock>
             </StatusBarItem>
 
-            <StatusBarItem Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Stretch">
+            <StatusBarItem Grid.Row="1" Grid.Column="1">
+                <Button Content="Play" Command="{Binding MediaPlayCommand}"/>
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Row="1" Grid.Column="2">
+                <Button Content="Pause" Command="{Binding MediaPauseCommand}"/>
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Row="3" Grid.Column="3" HorizontalContentAlignment="Stretch">
                 <ProgressBar Name="mediaVolume"/>
             </StatusBarItem>
-            
-        </StatusBar>-->
+
+        </StatusBar>
     </Grid>
 </UserControl>

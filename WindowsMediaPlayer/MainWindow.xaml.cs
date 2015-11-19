@@ -25,7 +25,7 @@ namespace WindowsMediaPlayer
         {
             InitializeComponent();
 
-            this.PlayerView.DataContext = new PlayerViewModel();
+            this.PlayerView.DataContext = PlayerViewModel.getInstance();
         }
     }
 }
