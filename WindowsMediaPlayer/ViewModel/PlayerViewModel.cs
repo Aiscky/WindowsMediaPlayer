@@ -22,7 +22,7 @@ namespace WindowsMediaPlayer.ViewModel
 
         public MediaElement MediaElement { get; set; }
         public Image MediaImage { get; set; }
-
+        
         /* COMMANDS */
 
         private ICommand mediaPlayCommand;
@@ -45,15 +45,12 @@ namespace WindowsMediaPlayer.ViewModel
             MediaImage.Visibility = System.Windows.Visibility.Visible;
             try
             {
-                //MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(@"C:\Users\Thibault\Downloads\PlayerBackground.png"));
                 MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "../../Ressources/PlayerBackground.png"));
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("\n\n\n" + e.Message + "\n\n\n");
-                Console.WriteLine("\n\n123\n\n");
-            }
-            Console.WriteLine(MediaImage.Source);
+            catch
+            { }
+            Model.Music test = new Model.Music(@"C:\Users\Public\Music\Sample Music\Kalimba.mp3");
+            PlayMedia(test);
         }
 
         public static PlayerViewModel getInstance()
@@ -70,18 +67,22 @@ namespace WindowsMediaPlayer.ViewModel
             switch (media.type)
             {
                 case Model.Media.MediaType.VIDEO:
+                    PlayVideo(media);
                     break;
                 case Model.Media.MediaType.IMAGE:
+                    PlayImage(media);
                     break;
                 case Model.Media.MediaType.MUSIC:
+                    PlayMusic(media);
                     break;
-            }            
+            }
         }
 
         public void PlayVideo(Model.Media media)
         {
             this.MediaElement.Source = new Uri(media.Path);
             this.MediaElement.Play();
+            this.mediaIsPlaying = true;
             this.MediaElement.Visibility = System.Windows.Visibility.Visible;
             this.MediaImage.Visibility = System.Windows.Visibility.Hidden;
         }
@@ -96,7 +97,11 @@ namespace WindowsMediaPlayer.ViewModel
                 MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "../../Ressources/PlayerBackground.png"));
             }
             catch { }
+            Console.WriteLine(((Model.Music)media).Artist);
+            Console.WriteLine(((Model.Music)media).Album);
+            Console.WriteLine(((Model.Music)media).Title);
             this.MediaElement.Play();
+            this.mediaIsPlaying = true;
         }
 
         public void PlayImage(Model.Media media)
@@ -106,21 +111,21 @@ namespace WindowsMediaPlayer.ViewModel
                 this.MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(media.Path));
             }
             catch { }
-
+            this.mediaIsPlaying = true;
         }
 
         /* THREAD TICKING FONCTION */
 
         private void timerTick(object sender, EventArgs e)
         {
-               
+
         }
 
         /* FONCTIONS GETTER */
 
         public ICommand MediaPlayCommand
         {
-            get 
+            get
             {
                 if (this.mediaPlayCommand == null)
                 {
