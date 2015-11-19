@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <ContentPresenter Grid.Row="0" Content="{Binding MediaElement}" />
-        <ContentPresenter Grid.Row="0" Content="{Binding Image}" />
+        <ContentPresenter Grid.Row="0" Content="{Binding MediaImage}" />
 
         <StatusBar Grid.Row="1">
             <StatusBar.ItemsPanel>

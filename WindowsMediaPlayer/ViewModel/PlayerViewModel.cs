@@ -41,11 +41,19 @@ namespace WindowsMediaPlayer.ViewModel
             MediaElement = new MediaElement();
             MediaElement.LoadedBehavior = MediaState.Manual;
             MediaElement.Visibility = System.Windows.Visibility.Hidden;
+            MediaImage = new Image();
+            MediaImage.Visibility = System.Windows.Visibility.Visible;
             try
             {
+                //MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(@"C:\Users\Thibault\Downloads\PlayerBackground.png"));
                 MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "../../Ressources/PlayerBackground.png"));
             }
-            catch { }
+            catch (Exception e)
+            {
+                Console.WriteLine("\n\n\n" + e.Message + "\n\n\n");
+                Console.WriteLine("\n\n123\n\n");
+            }
+            Console.WriteLine(MediaImage.Source);
         }
 
         public static PlayerViewModel getInstance()
