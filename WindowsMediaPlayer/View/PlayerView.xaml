@@ -42,7 +42,7 @@
                 <TextBlock Name="progressStatus">00:00:00</TextBlock>
             </StatusBarItem>
 
-            <StatusBarItem Grid.Row="1" Grid.Column="1">
+            <StatusBarItem Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Stretch">
                 <Button Content="Play" Command="{Binding MediaPlayCommand}"/>
             </StatusBarItem>
 

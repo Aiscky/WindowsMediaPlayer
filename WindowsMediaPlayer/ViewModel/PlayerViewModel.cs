@@ -49,7 +49,7 @@ namespace WindowsMediaPlayer.ViewModel
             }
             catch
             { }
-            Model.Music test = new Model.Music(@"C:\Users\Public\Music\Sample Music\Kalimba.mp3");
+            Model.Image test = new Model.Image(@"C:\Users\Public\Pictures\Sample Pictures\Koala.jpg");
             PlayMedia(test);
         }
 
@@ -97,20 +97,20 @@ namespace WindowsMediaPlayer.ViewModel
                 MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "../../Ressources/PlayerBackground.png"));
             }
             catch { }
-            Console.WriteLine(((Model.Music)media).Artist);
-            Console.WriteLine(((Model.Music)media).Album);
-            Console.WriteLine(((Model.Music)media).Title);
             this.MediaElement.Play();
             this.mediaIsPlaying = true;
         }
 
         public void PlayImage(Model.Media media)
         {
+            this.MediaElement.Visibility = System.Windows.Visibility.Hidden;
+            this.MediaImage.Visibility = System.Windows.Visibility.Visible;
             try
             {
                 this.MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(media.Path));
             }
-            catch { }
+            catch
+            { }
             this.mediaIsPlaying = true;
         }
 
