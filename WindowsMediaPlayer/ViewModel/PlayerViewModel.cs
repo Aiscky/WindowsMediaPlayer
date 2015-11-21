@@ -12,12 +12,13 @@ namespace WindowsMediaPlayer.ViewModel
 {
     class PlayerViewModel : ViewModelBase
     {
+        #region PlayerViewModelProperties
+
         /* PRIVATE */
 
         bool mediaIsPlaying = false;
         //bool sliderIsDragged = false;
         static private PlayerViewModel _instance = null;
-        private DispatcherTimer timer;
         private double mediaPosition;
         public double MediaPosition
         {
@@ -28,7 +29,9 @@ namespace WindowsMediaPlayer.ViewModel
             set
             {
                 mediaPosition = value;
+                //MediaElement.Position = TimeSpan.FromSeconds(value);
                 OnPropertyChanged("MediaPosition");
+                progressSlider_ValueChanged();
             }
         }
         private double mediaDuration;
@@ -44,17 +47,33 @@ namespace WindowsMediaPlayer.ViewModel
                 OnPropertyChanged("MediaDuration");
             }
         }
+        private String mediaProgressStatus;
+        public String MediaProgressStatus
+        {
+            get
+            {
+                return mediaProgressStatus;
+            }
+            set
+            {
+                mediaProgressStatus = value;
+                OnPropertyChanged("MediaProgressStatus");
+            }
+        }
+
 
         /* PUBLIC */
 
         public MediaElement MediaElement { get; set; }
         public Image MediaImage { get; set; }
-        public String MediaProgressStatus { get; set; }
+        public DispatcherTimer timer { get; set; }
 
         /* COMMANDS */
 
         private ICommand mediaPlayCommand;
         private ICommand mediaPauseCommand;
+
+        #endregion
 
         /* CTOR */
 
@@ -168,9 +187,9 @@ namespace WindowsMediaPlayer.ViewModel
 
         /* FONCTIONS EVENT */
 
-        public void progressSlider_changed(object sender, System.Windows.RoutedPropertyChangedEventArgs<TimeSpan> e)
+        public void progressSlider_ValueChanged()
         {
-            
+            MediaProgressStatus = TimeSpan.FromSeconds(MediaPosition).ToString(@"hh\:mm\:ss");
         }
 
         /* FONCTIONS GETTER */

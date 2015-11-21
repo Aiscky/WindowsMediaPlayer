@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -23,8 +24,19 @@ namespace WindowsMediaPlayer.View
         public PlayerView()
         {
             InitializeComponent();
+        }
 
+        /* PREVENT AUTO UPDATE FROM SLIDER AND UPDATE MEDIA POSITION BASED ON DRAGCOMPLETED */
 
+        public void progressSlider_DragStarted(object sender, DragStartedEventArgs e)
+        {
+            ((ViewModel.PlayerViewModel)this.DataContext).timer.Stop();
+        }
+
+        public void progressSlider_DragCompleted(object sender, DragCompletedEventArgs e)
+        {
+            ((ViewModel.PlayerViewModel)this.DataContext).MediaElement.Position = TimeSpan.FromSeconds(this.progressSlider.Value);
+            ((ViewModel.PlayerViewModel)this.DataContext).timer.Start();
         }
     }
 }

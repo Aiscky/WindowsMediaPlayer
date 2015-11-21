@@ -35,7 +35,7 @@
             </StatusBar.ItemsPanel>
 
             <StatusBarItem Grid.Row="0" Grid.ColumnSpan="4"  HorizontalContentAlignment="Stretch">
-                <Slider Name="progressSlider" Value="{Binding MediaPosition}" Maximum="{Binding MediaDuration}" TickFrequency="0.1"/>
+                <Slider Name="progressSlider" Value="{Binding MediaPosition}" Maximum="{Binding MediaDuration}" Thumb.DragStarted="progressSlider_DragStarted"  Thumb.DragCompleted="progressSlider_DragCompleted" TickFrequency="0.1"/>
             </StatusBarItem>
 
             <StatusBarItem Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center">
