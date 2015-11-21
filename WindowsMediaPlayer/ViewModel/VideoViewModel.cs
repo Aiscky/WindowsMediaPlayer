@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace WindowsMediaPlayer.ViewModel
 {
-    class VideoViewModel : ViewModelBase
+    public class VideoViewModel : ViewModelBase
     {
         #region VideoViewModelProperties
 
@@ -15,7 +17,8 @@ namespace WindowsMediaPlayer.ViewModel
 
         /* PUBLIC */
 
-        ObservableCollection<Model.Video> VideoList { get; set; }
+        public ObservableCollection<Model.Video> VideoList { get; set; }
+        public CollectionViewSource VideoViewList { get; set; }
 
         static private VideoViewModel instance = null;
 
@@ -25,13 +28,21 @@ namespace WindowsMediaPlayer.ViewModel
 
         private VideoViewModel()
         {
+            VideoList = new ObservableCollection<Model.Video>();
             LoadVideoDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos));
-            if (System.IO.Directory.Exists(@"C:\Users\Public\Videos"));
+            if (System.IO.Directory.Exists(@"C:\Users\Public\Videos"))
                 LoadVideoDirectory(@"C:\Users\Public\Videos");
         }
 
+        public static VideoViewModel getInstance()
+        {
+            if (VideoViewModel.instance == null)
+                instance = new VideoViewModel();
+            return instance;
+        }
+
         /* LOADING FROM BASIC DIRECTORY */
-        
+
         private void LoadVideoDirectory(String DirectoryName)
         {
             String[] filesEntries = System.IO.Directory.GetFiles(DirectoryName);
@@ -51,14 +62,15 @@ namespace WindowsMediaPlayer.ViewModel
         {
             //TODO CHECK IF MEDIA ALREADY LOADED + LOAD MEDIA
 
-            Console.WriteLine("File : " + FileName);
-        }
+            /* ERASE */
 
-        public static VideoViewModel getInstance()
-        {
-            if (instance == null)
-                instance = new VideoViewModel();
-            return instance;
+            var Extension = System.IO.Path.GetExtension(FileName).ToUpper();
+
+            if (Extension == ".MP4" || Extension == ".WMV")
+            {
+                Model.Video NewVideo = new Model.Video(FileName);
+                VideoList.Add(NewVideo);
+            }
         }
     }
 }

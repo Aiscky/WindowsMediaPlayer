@@ -26,7 +26,7 @@ namespace WindowsMediaPlayer
             InitializeComponent();
 
             this.PlayerView.DataContext = PlayerViewModel.getInstance();
-            this.VideoView.DataContext = VideoViewModel.getInstance();
+            ((View.VideoView.VideoDataContext)this.VideoView.DataContext).PlayerViewModel.MainWindowTabControl = this.MainWindowTabControl;
         }
     }
 }

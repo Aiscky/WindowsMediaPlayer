@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsMediaPlayer.Model
 {
-    class Image : Media
+    public class Image : Media
     {
         public Image(String path) : base(path)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsMediaPlayer.Model
 {
-    class Music : Media
+    public class Music : Media
     {
         public String Artist { get; set; }
         public String Album { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WindowsMediaPlayer.Model
 {
-    class Media
+    public class Media
     {
         /* ATTRIBUTES */
 

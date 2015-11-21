@@ -10,7 +10,7 @@ using System.Windows.Threading;
 
 namespace WindowsMediaPlayer.ViewModel
 {
-    class PlayerViewModel : ViewModelBase
+    public class PlayerViewModel : ViewModelBase
     {
         #region PlayerViewModelProperties
 
@@ -64,6 +64,7 @@ namespace WindowsMediaPlayer.ViewModel
 
         /* PUBLIC */
 
+        public TabControl MainWindowTabControl { get; set; }
         public MediaElement MediaElement { get; set; }
         public Image MediaImage { get; set; }
         public DispatcherTimer timer { get; set; }

@@ -11,5 +11,12 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <ListView Grid.Row="0" Name="VideoListView" ItemsSource="{Binding VideoViewModel.VideoList}" MouseDoubleClick="ItemVideoList_DoubleClicked">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

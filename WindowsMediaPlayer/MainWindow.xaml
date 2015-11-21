@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="WindowsMediaPlayer" Height="500" Width="700">
     <Grid>
-        <TabControl>
+        <TabControl x:Name="MainWindowTabControl">
             <TabItem Header="Playing">
                 <View:PlayerView x:Name="PlayerView"/>
             </TabItem>
