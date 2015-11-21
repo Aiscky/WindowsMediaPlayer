@@ -12,21 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WindowsMediaPlayer.ViewModel;
 
-namespace WindowsMediaPlayer
+namespace WindowsMediaPlayer.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for VideoView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class VideoView : UserControl
     {
-        public MainWindow()
+        public VideoView()
         {
             InitializeComponent();
-
-            this.PlayerView.DataContext = PlayerViewModel.getInstance();
-            this.VideoView.DataContext = VideoViewModel.getInstance();
         }
     }
 }

@@ -72,6 +72,7 @@ namespace WindowsMediaPlayer.ViewModel
 
         private ICommand mediaPlayCommand;
         private ICommand mediaPauseCommand;
+        private ICommand mediaStopCommand;
 
         #endregion
 
@@ -181,7 +182,6 @@ namespace WindowsMediaPlayer.ViewModel
                 if (MediaElement.NaturalDuration.HasTimeSpan)
                     MediaDuration = MediaElement.NaturalDuration.TimeSpan.TotalSeconds;
                 MediaPosition = MediaElement.Position.TotalSeconds;
-                Console.WriteLine("\n\n" + MediaPosition + "\n\n");
             }
         }
 
@@ -218,6 +218,18 @@ namespace WindowsMediaPlayer.ViewModel
             }
         }
 
+        public ICommand MediaStopCommand
+        {
+            get
+            {
+                if (this.mediaStopCommand == null)
+                {
+                    this.mediaStopCommand = new RelayCommand(() => ExecuteStopMedia(), () => CanExecuteStopMedia());
+                }
+                return this.mediaStopCommand;
+            }
+        }
+
         /*  COMMANDS FONCTIONS */
 
         private bool CanExecutePlayMedia()
@@ -246,6 +258,21 @@ namespace WindowsMediaPlayer.ViewModel
             mediaIsPlaying = false;
             MediaElement.Pause();
             timer.Stop();
+        }
+
+        private bool CanExecuteStopMedia()
+        {
+            if (this.MediaElement.Source == null)
+                return false;
+            return true;
+        }
+
+        private void ExecuteStopMedia()
+        {
+            mediaIsPlaying = false;
+            MediaElement.Stop();
+            timer.Stop();
+            MediaPosition = 0;
         }
     }
 }

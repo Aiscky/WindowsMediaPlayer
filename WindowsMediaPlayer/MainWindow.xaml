@@ -6,15 +6,18 @@
         xmlns:local="clr-namespace:WindowsMediaPlayer"
         xmlns:View="clr-namespace:WindowsMediaPlayer.View"
         mc:Ignorable="d"
-        Title="WindowsMediaPlayer" Height="350" Width="525">
+        Title="WindowsMediaPlayer" Height="500" Width="700">
     <Grid>
         <TabControl>
-            <TabItem Header="Images">
+            <TabItem Header="Playing">
                 <View:PlayerView x:Name="PlayerView"/>
+            </TabItem>
+            <TabItem Header="Images">
             </TabItem>
             <TabItem Header="Sounds">
             </TabItem>
             <TabItem Header="Videos">
+                <View:VideoView x:Name="VideoView"/>
             </TabItem>
             <TabItem Header="Playlists">
             </TabItem>
