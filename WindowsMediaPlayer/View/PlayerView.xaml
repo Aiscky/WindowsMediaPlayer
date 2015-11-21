@@ -35,18 +35,18 @@
             </StatusBar.ItemsPanel>
 
             <StatusBarItem Grid.Row="0" Grid.ColumnSpan="4"  HorizontalContentAlignment="Stretch">
-                <Slider Name="progressSlider"/>
+                <Slider Name="progressSlider" Value="{Binding MediaPosition}" Maximum="{Binding MediaDuration}" TickFrequency="0.1"/>
             </StatusBarItem>
 
-            <StatusBarItem Grid.Row="1" Grid.Column="0">
-                <TextBlock Name="progressStatus">00:00:00</TextBlock>
+            <StatusBarItem Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center">
+                <TextBlock Name="progressStatus" Text="{Binding MediaProgressStatus}"/>
             </StatusBarItem>
 
             <StatusBarItem Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Stretch">
                 <Button Content="Play" Command="{Binding MediaPlayCommand}"/>
             </StatusBarItem>
 
-            <StatusBarItem Grid.Row="1" Grid.Column="2">
+            <StatusBarItem Grid.Row="1" Grid.Column="2" HorizontalContentAlignment="Stretch">
                 <Button Content="Pause" Command="{Binding MediaPauseCommand}"/>
             </StatusBarItem>
 

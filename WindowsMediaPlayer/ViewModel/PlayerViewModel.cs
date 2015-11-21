@@ -15,14 +15,42 @@ namespace WindowsMediaPlayer.ViewModel
         /* PRIVATE */
 
         bool mediaIsPlaying = false;
-        bool sliderIsDragged = false;
+        //bool sliderIsDragged = false;
         static private PlayerViewModel _instance = null;
+        private DispatcherTimer timer;
+        private double mediaPosition;
+        public double MediaPosition
+        {
+            get
+            {
+                return mediaPosition;
+            }
+            set
+            {
+                mediaPosition = value;
+                OnPropertyChanged("MediaPosition");
+            }
+        }
+        private double mediaDuration;
+        public double MediaDuration
+        {
+            get
+            {
+                return mediaDuration;
+            }
+            set
+            {
+                mediaDuration = value;
+                OnPropertyChanged("MediaDuration");
+            }
+        }
 
         /* PUBLIC */
 
         public MediaElement MediaElement { get; set; }
         public Image MediaImage { get; set; }
-        
+        public String MediaProgressStatus { get; set; }
+
         /* COMMANDS */
 
         private ICommand mediaPlayCommand;
@@ -34,8 +62,8 @@ namespace WindowsMediaPlayer.ViewModel
         {
             /* Setting the thread for media timer */
 
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(0.05);
             timer.Tick += timerTick;
 
             MediaElement = new MediaElement();
@@ -49,7 +77,8 @@ namespace WindowsMediaPlayer.ViewModel
             }
             catch
             { }
-            Model.Image test = new Model.Image(@"C:\Users\Public\Pictures\Sample Pictures\Koala.jpg");
+            //Model.Image test = new Model.Image(@"C:\Users\Public\Pictures\Sample Pictures\Koala.jpg");
+            Model.Video test = new Model.Video(@"C:\Users\Thibault\Downloads\Sample.mp4");
             PlayMedia(test);
         }
 
@@ -64,6 +93,14 @@ namespace WindowsMediaPlayer.ViewModel
 
         public void PlayMedia(Model.Media media)
         {
+            /* SETTING INTERFACE VALUES */
+
+            MediaProgressStatus = "00:00:00";
+            MediaDuration = 0;
+            MediaPosition = 0;
+
+            /* CALLING MEDIA SPECIFIC FONCTION */
+
             switch (media.type)
             {
                 case Model.Media.MediaType.VIDEO:
@@ -82,6 +119,7 @@ namespace WindowsMediaPlayer.ViewModel
         {
             this.MediaElement.Source = new Uri(media.Path);
             this.MediaElement.Play();
+            this.timer.Start();
             this.mediaIsPlaying = true;
             this.MediaElement.Visibility = System.Windows.Visibility.Visible;
             this.MediaImage.Visibility = System.Windows.Visibility.Hidden;
@@ -98,6 +136,7 @@ namespace WindowsMediaPlayer.ViewModel
             }
             catch { }
             this.MediaElement.Play();
+            this.timer.Start();
             this.mediaIsPlaying = true;
         }
 
@@ -118,7 +157,20 @@ namespace WindowsMediaPlayer.ViewModel
 
         private void timerTick(object sender, EventArgs e)
         {
+            if (MediaElement.Source != null)
+            {
+                if (MediaElement.NaturalDuration.HasTimeSpan)
+                    MediaDuration = MediaElement.NaturalDuration.TimeSpan.TotalSeconds;
+                MediaPosition = MediaElement.Position.TotalSeconds;
+                Console.WriteLine("\n\n" + MediaPosition + "\n\n");
+            }
+        }
 
+        /* FONCTIONS EVENT */
+
+        public void progressSlider_changed(object sender, System.Windows.RoutedPropertyChangedEventArgs<TimeSpan> e)
+        {
+            
         }
 
         /* FONCTIONS GETTER */
@@ -160,6 +212,7 @@ namespace WindowsMediaPlayer.ViewModel
         {
             mediaIsPlaying = true;
             MediaElement.Play();
+            timer.Start();
         }
 
         private bool CanExecutePauseMedia()
@@ -173,6 +226,7 @@ namespace WindowsMediaPlayer.ViewModel
         {
             mediaIsPlaying = false;
             MediaElement.Pause();
+            timer.Stop();
         }
     }
 }
