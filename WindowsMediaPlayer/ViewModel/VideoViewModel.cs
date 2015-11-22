@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using WindowsMediaPlayer.XML;
 
 namespace WindowsMediaPlayer.ViewModel
@@ -15,6 +16,10 @@ namespace WindowsMediaPlayer.ViewModel
         #region VideoViewModelProperties
 
         /* PRIVATE */
+
+        /* Command */
+
+        private ICommand openFileCommand;
 
         /* PUBLIC */
 
@@ -43,7 +48,7 @@ namespace WindowsMediaPlayer.ViewModel
             XMLVideo.LoadXML("Video.XML");
             XMLVideo.AddMedia(this.VideoList[0]);
             XMLVideo.WriteXML("Video.XML");*/
-            Console.WriteLine(System.IO.File.ReadAllText("Video.XML"));
+            //Console.WriteLine(System.IO.File.ReadAllText("Video.XML"));
         }
 
         public static VideoViewModel getInstance()
@@ -81,6 +86,36 @@ namespace WindowsMediaPlayer.ViewModel
             if (Extension == ".MP4" || Extension == ".WMV")
             {
                 Model.Video NewVideo = new Model.Video(FileName);
+                VideoList.Add(NewVideo);
+            }
+        }
+        
+        public ICommand OpenFileCommand
+        {
+            get
+            {
+                if (this.openFileCommand == null)
+                {
+                    this.openFileCommand = new RelayCommand(() => ExecuteOpenFile(), () => CanExecuteOpenFile());
+                }
+                return this.openFileCommand;
+            }
+        }
+
+        private bool CanExecuteOpenFile()
+        {
+            return true;
+        }
+
+        private void ExecuteOpenFile()
+        {
+            System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            openFileDialog.Filter = "MP4 Files (.mp4)|*.mp4|WMV Files (.wmv)|*.wmv";
+            openFileDialog.FilterIndex = 1;
+
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Model.Video NewVideo = new Model.Video(openFileDialog.FileName);
                 VideoList.Add(NewVideo);
             }
         }

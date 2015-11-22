@@ -8,8 +8,8 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4.5*"/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
         <ListView Grid.Row="0" Name="VideoListView" ItemsSource="{Binding VideoViewModel.VideoList}" MouseDoubleClick="ItemVideoList_DoubleClicked">
             <ListView.View>
@@ -18,5 +18,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <StatusBarItem Grid.Row="1" HorizontalContentAlignment="Stretch">
+            <Button Content="Open file" Command="{Binding VideoViewModel.OpenFileCommand}"/>
+        </StatusBarItem>
     </Grid>
 </UserControl>
