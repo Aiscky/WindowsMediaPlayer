@@ -13,8 +13,10 @@
                 <View:PlayerView x:Name="PlayerView"/>
             </TabItem>
             <TabItem Header="Images">
+                <View:ImageView x:Name="ImageView"/>
             </TabItem>
             <TabItem Header="Sounds">
+                <View:MusicView x:Name="MusicView"/>
             </TabItem>
             <TabItem Header="Videos">
                 <View:VideoView x:Name="VideoView"/>

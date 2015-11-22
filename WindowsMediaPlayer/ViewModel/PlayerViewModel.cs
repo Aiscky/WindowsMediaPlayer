@@ -122,6 +122,9 @@ namespace WindowsMediaPlayer.ViewModel
 
             /* CALLING MEDIA SPECIFIC FONCTION */
 
+            if (media == null)
+                return;
+
             switch (media.type)
             {
                 case Model.Media.MediaType.VIDEO:
@@ -132,6 +135,8 @@ namespace WindowsMediaPlayer.ViewModel
                     break;
                 case Model.Media.MediaType.MUSIC:
                     PlayMusic(media);
+                    break;
+                default:
                     break;
             }
         }

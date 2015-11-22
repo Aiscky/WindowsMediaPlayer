@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WindowsMediaPlayer.ViewModel;
 
 namespace WindowsMediaPlayer.View
 {
@@ -23,6 +24,20 @@ namespace WindowsMediaPlayer.View
         public ImageView()
         {
             InitializeComponent();
+
+            this.DataContext = new View.ImageView.ImageDataContext { PlayerViewModel = PlayerViewModel.getInstance(), ImageViewModel = ImageViewModel.getInstance() };
+        }
+
+        private void ItemImageList_DoubleClicked(object sender, MouseButtonEventArgs e)
+        {
+            ((ImageDataContext)this.DataContext).PlayerViewModel.PlayMedia((Model.Image)this.ImageListView.SelectedItem);
+            ((ImageDataContext)this.DataContext).PlayerViewModel.MainWindowTabControl.SelectedIndex = 0;
+        }
+
+        public class ImageDataContext
+        {
+            public ViewModel.PlayerViewModel PlayerViewModel { get; set; }
+            public ViewModel.ImageViewModel ImageViewModel { get; set; }
         }
     }
 }

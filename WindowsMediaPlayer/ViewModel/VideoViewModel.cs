@@ -19,7 +19,7 @@ namespace WindowsMediaPlayer.ViewModel
 
         /* Command */
 
-        private ICommand openFileCommand;
+        private ICommand openFileVideoCommand;
 
         /* PUBLIC */
 
@@ -90,24 +90,24 @@ namespace WindowsMediaPlayer.ViewModel
             }
         }
         
-        public ICommand OpenFileCommand
+        public ICommand OpenFileVideoCommand
         {
             get
             {
-                if (this.openFileCommand == null)
+                if (this.openFileVideoCommand == null)
                 {
-                    this.openFileCommand = new RelayCommand(() => ExecuteOpenFile(), () => CanExecuteOpenFile());
+                    this.openFileVideoCommand = new RelayCommand(() => ExecuteOpenVideoFile(), () => CanExecuteOpenVideoFile());
                 }
-                return this.openFileCommand;
+                return this.openFileVideoCommand;
             }
         }
 
-        private bool CanExecuteOpenFile()
+        private bool CanExecuteOpenVideoFile()
         {
             return true;
         }
 
-        private void ExecuteOpenFile()
+        private void ExecuteOpenVideoFile()
         {
             System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
             openFileDialog.Filter = "MP4 Files (.mp4)|*.mp4|WMV Files (.wmv)|*.wmv";

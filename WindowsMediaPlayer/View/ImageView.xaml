@@ -7,6 +7,23 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4.5*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+        <DataGrid AutoGenerateColumns="False" Grid.Row="0" Name="ImageListView" ItemsSource="{Binding ImageViewModel.ImageList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="Location" Binding="{Binding Path}"/>
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="ItemImageList_DoubleClicked"/>
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+        <StatusBarItem Grid.Row="1" HorizontalContentAlignment="Stretch">
+            <Button Content="Open file" Command="{Binding ImageViewModel.OpenFileImageCommand}"/>
+        </StatusBarItem>
     </Grid>
 </UserControl>
