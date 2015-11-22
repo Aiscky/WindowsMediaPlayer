@@ -48,13 +48,24 @@ namespace WindowsMediaPlayer.XML
 
         /* ADD MEDIA OBJ TO XML */
 
-        public void AddMedia(Model.Media media)
+        public void AddMedia(Model.Media aMedia)
         {
             if (XElement == null)
                 return;
             try
             {
-                XElement.Add(new System.Xml.Linq.XElement("Media", new System.Xml.Linq.XElement("Path", media.Path)));
+                /* TESTING IF THE SAME MEDIA ALREADY EXISTS */
+
+                var medias = from media in XElement.Elements() where (string)media.Element("Path").Value == media.Value select media;
+
+                if (medias.Count() != 0)
+                {
+                    return;
+                }
+
+                /* ADDING MEDIA */
+
+                XElement.Add(new System.Xml.Linq.XElement("Media", new System.Xml.Linq.XElement("Path", aMedia.Path)));
             }
             catch
             { }
@@ -72,6 +83,25 @@ namespace WindowsMediaPlayer.XML
             }
         }
 
+        /* REMOVE ALL MEDIAS XML FILE */
+
+        public void RemoveAllMedias()
+        {
+            IEnumerable<System.Xml.Linq.XElement> medias = XElement.Elements();
+            List<String> MediasList = new List<String>();
+
+            if (XElement == null)
+                return;
+
+            try
+            {
+                foreach (var media in medias)
+                    media.Remove();
+            }
+            catch
+            { }
+        }
+
         /* WRITE THE CORRESPONDING XML FILE TO XELEMENT*/
 
         public void WriteXML(String XMLFile)
@@ -79,7 +109,7 @@ namespace WindowsMediaPlayer.XML
             if (XElement != null)
             {
                 XElement.Save(XMLFile);
-            }            
+            }
         }
     }
 }
