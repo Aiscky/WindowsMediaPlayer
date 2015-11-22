@@ -38,6 +38,7 @@ namespace WindowsMediaPlayer.ViewModel
             set
             {
                 playlistName = value;
+                Console.WriteLine("PlaylistName Modified");
                 OnPropertyChanged("PlaylistName");
             }
         }
