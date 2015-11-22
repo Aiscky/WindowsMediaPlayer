@@ -22,6 +22,7 @@
                 <View:VideoView x:Name="VideoView"/>
             </TabItem>
             <TabItem Header="Playlists">
+                <View:PlaylistView x:Name="PlaylistView"/>
             </TabItem>
         </TabControl>
     </Grid>

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace WindowsMediaPlayer.ViewModel
 {
@@ -13,8 +14,21 @@ namespace WindowsMediaPlayer.ViewModel
 
         private static PlaylistViewModel instance = null;
         public ObservableCollection<Model.Playlist> PlaylistsList;
-        public Model.Playlist CurrentPlaylist;
-        private String playlistName;
+        private Model.Playlist currentPlaylist = null;
+        public Model.Playlist CurrentPlaylist
+        {
+            get
+            {
+                return currentPlaylist;
+            }
+            set
+            {
+                currentPlaylist = value;
+                OnPropertyChanged("CurrentPlaylist");
+            }
+        }
+        private ICommand createPlaylistCommand = null;
+        private String playlistName = "";
         public String PlaylistName
         {
             get
@@ -40,6 +54,7 @@ namespace WindowsMediaPlayer.ViewModel
         private void LoadPlaylistsFromXML()
         {
             XML.XMLPlaylist XMLPlaylist = new XML.XMLPlaylist();
+            XMLPlaylist.LoadXML("Playlist.xml");
             PlaylistsList = XMLPlaylist.ExtractPlaylists();
         }
 
@@ -50,6 +65,41 @@ namespace WindowsMediaPlayer.ViewModel
                 instance = new PlaylistViewModel();
             }
             return instance;
+        }
+
+        /* COMMAND GETTER */
+
+        public ICommand CreatePlaylistCommand
+        {
+            get
+            {
+                if (createPlaylistCommand == null)
+                {
+                    createPlaylistCommand = new RelayCommand(() => ExecuteCreatePlaylist(), () => CanCreatePlaylist());
+                }
+                return createPlaylistCommand;
+            }
+        }
+        
+        /* COMMAND FONCTIONS */
+
+        private bool CanCreatePlaylist()
+        {
+            if (playlistName != "")
+                return true;
+            return false;
+        } 
+
+        private void ExecuteCreatePlaylist()
+        {
+            Model.Playlist NewPlaylist = new Model.Playlist() { Name = playlistName };
+
+            this.PlaylistsList.Add(NewPlaylist);
+            this.CurrentPlaylist = NewPlaylist;
+            XML.XMLPlaylist XMLPlaylist = new XML.XMLPlaylist();
+            XMLPlaylist.LoadXML("Playlist.xml");
+            XMLPlaylist.AddPlaylist(playlistName);
+            XMLPlaylist.WriteXML("Playlist.xml");
         }
     }
 }

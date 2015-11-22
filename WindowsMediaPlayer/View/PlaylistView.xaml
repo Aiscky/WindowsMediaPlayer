@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="2*" />
             <RowDefinition Height="0.5*" />
+            <RowDefinition Height="0.5*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="0.5*" />
         </Grid.RowDefinitions>
@@ -28,7 +29,17 @@
             </DataGrid.RowStyle>
         </DataGrid>
         <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding PlaylistName}"/>
-        <Button Grid.Row="1" Grid.Column="1" Content="Create Playlist"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="Create Playlist" Command="{Binding PlaylistViewModel.CreatePlaylistCommand}"/>
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding PlaylistModel.CurrentPlaylist.Name}" HorizontalAlignment="Center"/>
+        <DataGrid AutoGenerateColumns="True" Grid.Row="3" Grid.ColumnSpan="2" Name="PlaylistView" ItemsSource="{Binding PlaylistViewModel.CurrentPlaylist.MediasList}">
+            <DataGrid.Columns>
+                <!--<DataGridTextColumn IsReadOnly="True" Header="Name" Binding=""/>-->
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
     </Grid>
 
 </UserControl>
