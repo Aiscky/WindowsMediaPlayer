@@ -37,18 +37,27 @@ namespace WindowsMediaPlayer.ViewModel
             LoadVideoDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos));
             if (System.IO.Directory.Exists(@"C:\Users\Public\Videos"))
                 LoadVideoDirectory(@"C:\Users\Public\Videos");
+            LoadVideosFromXML();
+        }
 
-            /*Console.WriteLine("SIZE : " + VideoList.Count + "\n\n");
-            foreach (Model.Video video in VideoList)
-            {
-                Console.WriteLine("Path : " + video.Path + "\n\n");
-            }*/
+        /* LOAD VIDEO FROM XML */
 
-            /*XMLMedia XMLVideo = new XMLMedia();
+        private void LoadVideosFromXML()
+        {
+            XMLMedia XMLVideo = new XMLMedia();
             XMLVideo.LoadXML("Video.XML");
-            XMLVideo.AddMedia(this.VideoList[0]);
-            XMLVideo.WriteXML("Video.XML");*/
-            //Console.WriteLine(System.IO.File.ReadAllText("Video.XML"));
+
+            List<String> videoList = XMLVideo.ExtractMedias();
+
+            foreach (var video in videoList)
+            {
+                var DirectoriesVideos = from DirectoryVideo in VideoList where DirectoryVideo.Path == video select DirectoryVideo;
+
+                if (DirectoriesVideos.Count() == 0)
+                {
+                    VideoList.Add(new Model.Video(video));
+                }
+            }
         }
 
         public static VideoViewModel getInstance()
@@ -117,6 +126,10 @@ namespace WindowsMediaPlayer.ViewModel
             {
                 Model.Video NewVideo = new Model.Video(openFileDialog.FileName);
                 VideoList.Add(NewVideo);
+                XMLMedia XMLVideo = new XMLMedia();
+                XMLVideo.LoadXML("Video.xml");
+                XMLVideo.AddMedia(NewVideo);
+                XMLVideo.WriteXML("Video.xml");
             }
         }
     }

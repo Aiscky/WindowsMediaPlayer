@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WindowsMediaPlayer.XML;
 
 namespace WindowsMediaPlayer.ViewModel
 {
@@ -34,18 +35,27 @@ namespace WindowsMediaPlayer.ViewModel
             LoadMusicDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyMusic));
             if (System.IO.Directory.Exists(@"C:\Users\Public\Music"))
                 LoadMusicDirectory(@"C:\Users\Public\Music");
+            LoadMusicsFromXML();
+        }
 
-            /*Console.WriteLine("SIZE : " + VideoList.Count + "\n\n");
-            foreach (Model.Video video in VideoList)
+        /* LOAD IMAGE FROM XML */
+
+        private void LoadMusicsFromXML()
+        {
+            XMLMedia XMLMusic = new XMLMedia();
+            XMLMusic.LoadXML("Music.XML");
+
+            List<String> musicList = XMLMusic.ExtractMedias();
+
+            foreach (var music in musicList)
             {
-                Console.WriteLine("Path : " + video.Path + "\n\n");
-            }*/
+                var DirectoriesMusics = from DirectoryMusic in MusicList where DirectoryMusic.Path == music select DirectoryMusic;
 
-            /*XMLMedia XMLVideo = new XMLMedia();
-            XMLVideo.LoadXML("Video.XML");
-            XMLVideo.AddMedia(this.VideoList[0]);
-            XMLVideo.WriteXML("Video.XML");*/
-            //Console.WriteLine(System.IO.File.ReadAllText("Video.XML"));
+                if (DirectoriesMusics.Count() == 0)
+                {
+                    MusicList.Add(new Model.Music(music));
+                }
+            }
         }
 
         public static MusicViewModel getInstance()
@@ -114,6 +124,10 @@ namespace WindowsMediaPlayer.ViewModel
             {
                 Model.Music NewMusic = new Model.Music(openFileDialog.FileName);
                 MusicList.Add(NewMusic);
+                XMLMedia XMLMusic = new XMLMedia();
+                XMLMusic.LoadXML("Music.xml");
+                XMLMusic.AddMedia(NewMusic);
+                XMLMusic.WriteXML("Music.xml");
             }
         }
     }

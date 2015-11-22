@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WindowsMediaPlayer.Model
 {
-    class Playlist
+    public class Playlist
     {
         #region PlaylistProperties
         public String Name { get; set; }

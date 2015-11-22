@@ -27,7 +27,6 @@ namespace WindowsMediaPlayer.View
 
             /* SETTING DATA CONTEXT */
 
-            Console.WriteLine("Creation VideoView");
             this.DataContext = new View.VideoView.VideoDataContext { PlayerViewModel = PlayerViewModel.getInstance(), VideoViewModel = VideoViewModel.getInstance() };
         }
 
