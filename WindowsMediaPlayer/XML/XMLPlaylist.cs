@@ -78,6 +78,8 @@ namespace WindowsMediaPlayer.XML
             return playlistsList;
         }
 
+        /* ADD PLAYLIST XELEMENT */
+
         public void AddPlaylist(String playlistName)
         {
             var playlists = from playlist in XElement.Elements() where (String)playlist.Element("Name").Value == playlistName select playlist;
@@ -88,6 +90,8 @@ namespace WindowsMediaPlayer.XML
             XElement.Add(new System.Xml.Linq.XElement("Playlist",  new System.Xml.Linq.XElement("Name", playlistName)));
         }
 
+        /* REMOVE PLAYLIST XELEMENT FROM NAME */
+
         public void RemovePlaylist(Model.Playlist rPlaylist)
         {
             var playlists = from playlist in XElement.Elements() where (String)playlist.Element("Name").Value == playlist.Name select playlist;
@@ -97,6 +101,8 @@ namespace WindowsMediaPlayer.XML
                 playlist.Remove();
             }
         }
+
+        /* ADD MEDIAOBJECT TO PLAYLIST */
 
         public void AddPlaylistItem(String playlistName, Model.Media media)
         {
@@ -112,6 +118,8 @@ namespace WindowsMediaPlayer.XML
                     new System.Xml.Linq.XElement("Type", media.type)));
             }
         }
+
+        /*  REMOVE MEDIAOBJECT FROM PLAYLIST */
 
         public void RemovePlaylistItem(String playlistName, Model.Media rMedia)
         {
@@ -131,6 +139,8 @@ namespace WindowsMediaPlayer.XML
             }
         }
 
+        /* REMOVE ALL PLAYLISTS */
+
         public void RemoveAllPlaylists()
         {
             var playlists = XElement.Elements();
@@ -140,6 +150,8 @@ namespace WindowsMediaPlayer.XML
                 playlist.Remove();
             }
         }
+
+        /* SAVE XML FILE TO FILENAME */
 
         public void WriteXML(String XMLFile)
         {
