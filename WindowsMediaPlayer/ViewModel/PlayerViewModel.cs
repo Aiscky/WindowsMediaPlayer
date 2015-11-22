@@ -64,7 +64,19 @@ namespace WindowsMediaPlayer.ViewModel
 
         /* PUBLIC */
 
-        public TabControl MainWindowTabControl { get; set; }
+        private TabControl mainWindowTabControl = null;
+        public TabControl MainWindowTabControl
+        {
+            get
+            {
+                return mainWindowTabControl;
+            }
+            set
+            {
+                this.mainWindowTabControl = value;
+                OnPropertyChanged("MainWindowTabControl");
+            }
+        }
         public MediaElement MediaElement { get; set; }
         public Image MediaImage { get; set; }
         public DispatcherTimer timer { get; set; }

@@ -32,6 +32,7 @@ namespace WindowsMediaPlayer.View
         {
             ((ImageDataContext)this.DataContext).PlayerViewModel.PlayMedia((Model.Image)this.ImageListView.SelectedItem);
             ((ImageDataContext)this.DataContext).PlayerViewModel.MainWindowTabControl.SelectedIndex = 0;
+            e.Handled = true;
         }
 
         public class ImageDataContext

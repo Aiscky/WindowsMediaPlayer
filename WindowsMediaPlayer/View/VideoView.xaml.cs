@@ -27,6 +27,7 @@ namespace WindowsMediaPlayer.View
 
             /* SETTING DATA CONTEXT */
 
+            Console.WriteLine("Creation VideoView");
             this.DataContext = new View.VideoView.VideoDataContext { PlayerViewModel = PlayerViewModel.getInstance(), VideoViewModel = VideoViewModel.getInstance() };
         }
 
@@ -34,6 +35,7 @@ namespace WindowsMediaPlayer.View
         {
             ((VideoDataContext)this.DataContext).PlayerViewModel.PlayMedia((Model.Video)this.VideoListView.SelectedItem);
             ((VideoDataContext)this.DataContext).PlayerViewModel.MainWindowTabControl.SelectedIndex = 0;
+            e.Handled = true;
         }
 
         public class VideoDataContext

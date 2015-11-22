@@ -32,6 +32,7 @@ namespace WindowsMediaPlayer.View
         {
             ((MusicDataContext)this.DataContext).PlayerViewModel.PlayMedia((Model.Music)this.MusicListView.SelectedItem);
             ((MusicDataContext)this.DataContext).PlayerViewModel.MainWindowTabControl.SelectedIndex = 0;
+            e.Handled = true;
         }
 
         public class MusicDataContext
