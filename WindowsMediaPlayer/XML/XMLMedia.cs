@@ -56,7 +56,7 @@ namespace WindowsMediaPlayer.XML
             {
                 /* TESTING IF THE SAME MEDIA ALREADY EXISTS */
 
-                var medias = from media in XElement.Elements() where (string)media.Element("Path").Value == media.Value select media;
+                var medias = from media in XElement.Elements() where (string)media.Element("Path").Value == aMedia.Path select media;
 
                 if (medias.Count() != 0)
                 {
