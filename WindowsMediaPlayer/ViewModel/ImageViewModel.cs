@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WindowsMediaPlayer.XML;
 
 namespace WindowsMediaPlayer.ViewModel
 {
@@ -34,18 +35,27 @@ namespace WindowsMediaPlayer.ViewModel
             LoadImageDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyPictures));
             if (System.IO.Directory.Exists(@"C:\Users\Public\Pictures"))
                 LoadImageDirectory(@"C:\Users\Public\Pictures");
+            LoadImagesFromXML();
+        }
 
-            /*Console.WriteLine("SIZE : " + VideoList.Count + "\n\n");
-            foreach (Model.Video video in VideoList)
+        /* LOAD IMAGES FROM XML */
+
+        private void LoadImagesFromXML()
+        {
+            XMLMedia XMLImage = new XMLMedia();
+            XMLImage.LoadXML("Image.XML");
+
+            List<String> imagesList = XMLImage.ExtractMedias();
+
+            foreach (var image in imagesList)
             {
-                Console.WriteLine("Path : " + video.Path + "\n\n");
-            }*/
+                var DirectoriesImages = from DirectoryImage in ImageList where DirectoryImage.Path == image select DirectoryImage;
 
-            /*XMLMedia XMLVideo = new XMLMedia();
-            XMLVideo.LoadXML("Video.XML");
-            XMLVideo.AddMedia(this.VideoList[0]);
-            XMLVideo.WriteXML("Video.XML");*/
-            //Console.WriteLine(System.IO.File.ReadAllText("Video.XML"));
+                if (DirectoriesImages.Count() == 0)
+                {
+                    ImageList.Add(new Model.Image(image));
+                }
+            }
         }
 
         public static ImageViewModel getInstance()
@@ -114,6 +124,10 @@ namespace WindowsMediaPlayer.ViewModel
             {
                 Model.Image NewImage = new Model.Image(openFileDialog.FileName);
                 ImageList.Add(NewImage);
+                XMLMedia XMLImage = new XMLMedia();
+                XMLImage.LoadXML("Image.xml");
+                XMLImage.AddMedia(NewImage);
+                XMLImage.WriteXML("Image.xml");
             }
         }
     }

@@ -17,7 +17,7 @@ namespace WindowsMediaPlayer.ViewModel
         /* PRIVATE */
 
         bool mediaIsPlaying = false;
-        //bool sliderIsDragged = false;
+        bool playlistIsPlaying = false;
         static private PlayerViewModel _instance = null;
         private double mediaPosition;
         public double MediaPosition
@@ -107,12 +107,10 @@ namespace WindowsMediaPlayer.ViewModel
             try
             {
                 MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "../../Ressources/PlayerBackground.png"));
+                MediaImage.Visibility = System.Windows.Visibility.Visible;
             }
             catch
             { }
-            //Model.Image test = new Model.Image(@"C:\Users\Public\Pictures\Sample Pictures\Koala.jpg");
-            Model.Video test = new Model.Video(@"C:\Users\Thibault\Downloads\Sample.mp4");
-            PlayMedia(test);
         }
 
         public static PlayerViewModel getInstance()
@@ -155,7 +153,14 @@ namespace WindowsMediaPlayer.ViewModel
 
         public void PlayVideo(Model.Media media)
         {
-            this.MediaElement.Source = new Uri(media.Path);
+            try
+            {
+                this.MediaElement.Source = new Uri(media.Path);
+            }
+            catch
+            {
+                return;
+            }
             this.MediaElement.Play();
             this.timer.Start();
             this.mediaIsPlaying = true;
@@ -165,14 +170,22 @@ namespace WindowsMediaPlayer.ViewModel
 
         public void PlayMusic(Model.Media media)
         {
-            this.MediaElement.Source = new Uri(media.Path);
+            try
+            {
+                this.MediaElement.Source = new Uri(media.Path);
+            }
+            catch
+            {
+                return;
+            }
             this.MediaElement.Visibility = System.Windows.Visibility.Hidden;
             this.MediaImage.Visibility = System.Windows.Visibility.Visible;
             try
             {
                 MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "../../Ressources/PlayerBackground.png"));
             }
-            catch { }
+            catch
+            { }
             this.MediaElement.Play();
             this.timer.Start();
             this.mediaIsPlaying = true;
@@ -182,12 +195,15 @@ namespace WindowsMediaPlayer.ViewModel
         {
             this.MediaElement.Visibility = System.Windows.Visibility.Hidden;
             this.MediaImage.Visibility = System.Windows.Visibility.Visible;
+            this.MediaElement.Source = null;
             try
             {
                 this.MediaImage.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(media.Path));
             }
             catch
-            { }
+            {
+                return;
+            }
             this.mediaIsPlaying = true;
         }
 

@@ -7,6 +7,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="0.5*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <DataGrid AutoGenerateColumns="True" Grid.Row="0" Grid.ColumnSpan="2" Name="PlaylistListView" ItemsSource="{Binding PlaylistViewModel.PlaylistsList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}"/>
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+        <TextBox Grid.Row="1" Grid.Column="0" Text="{Binding PlaylistName}"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="Create Playlist"/>
     </Grid>
+
 </UserControl>

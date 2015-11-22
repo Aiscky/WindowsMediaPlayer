@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WindowsMediaPlayer.ViewModel;
 
 namespace WindowsMediaPlayer.View
 {
@@ -23,6 +24,14 @@ namespace WindowsMediaPlayer.View
         public PlaylistView()
         {
             InitializeComponent();
+
+            this.DataContext = new PlaylistDataContext() { PlayerViewModel = PlayerViewModel.getInstance(), PlaylistViewModel = PlaylistViewModel.getInstance() };
+        }
+
+        public class PlaylistDataContext
+        {
+            public ViewModel.PlayerViewModel PlayerViewModel { get; set; }
+            public ViewModel.PlaylistViewModel PlaylistViewModel { get; set; }
         }
     }
 }
