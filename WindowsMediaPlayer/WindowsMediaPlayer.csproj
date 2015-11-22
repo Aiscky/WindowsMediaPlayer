@@ -58,6 +58,7 @@
     <Compile Include="Model\Image.cs" />
     <Compile Include="Model\Media.cs" />
     <Compile Include="Model\Music.cs" />
+    <Compile Include="Model\Playlist.cs" />
     <Compile Include="Model\Video.cs" />
     <Compile Include="ViewModel\PlayerViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
