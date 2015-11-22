@@ -13,7 +13,7 @@ namespace WindowsMediaPlayer.ViewModel
         #region PlaylistViewModelProperties
 
         private static PlaylistViewModel instance = null;
-        public ObservableCollection<Model.Playlist> PlaylistsList;
+        public ObservableCollection<Model.Playlist> PlaylistsList { get; set; }
         private Model.Playlist currentPlaylist = null;
         public Model.Playlist CurrentPlaylist
         {
@@ -38,7 +38,6 @@ namespace WindowsMediaPlayer.ViewModel
             set
             {
                 playlistName = value;
-                Console.WriteLine("PlaylistName Modified");
                 OnPropertyChanged("PlaylistName");
             }
         }
@@ -56,6 +55,7 @@ namespace WindowsMediaPlayer.ViewModel
         {
             XML.XMLPlaylist XMLPlaylist = new XML.XMLPlaylist();
             XMLPlaylist.LoadXML("Playlist.xml");
+            XMLPlaylist.RemoveAllPlaylists();
             PlaylistsList = XMLPlaylist.ExtractPlaylists();
         }
 

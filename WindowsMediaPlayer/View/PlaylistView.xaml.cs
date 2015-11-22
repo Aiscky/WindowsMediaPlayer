@@ -27,11 +27,11 @@ namespace WindowsMediaPlayer.View
 
             this.DataContext = new PlaylistDataContext() { PlayerViewModel = PlayerViewModel.getInstance(), PlaylistViewModel = PlaylistViewModel.getInstance() };
         }
+    }
 
-        public class PlaylistDataContext
-        {
-            public ViewModel.PlayerViewModel PlayerViewModel { get; set; }
-            public ViewModel.PlaylistViewModel PlaylistViewModel { get; set; }
-        }
+    public class PlaylistDataContext
+    {
+        public ViewModel.PlayerViewModel PlayerViewModel { get; set; }
+        public ViewModel.PlaylistViewModel PlaylistViewModel { get; set; }
     }
 }

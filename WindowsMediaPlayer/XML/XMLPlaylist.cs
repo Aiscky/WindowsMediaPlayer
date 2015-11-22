@@ -143,12 +143,7 @@ namespace WindowsMediaPlayer.XML
 
         public void RemoveAllPlaylists()
         {
-            var playlists = XElement.Elements();
-
-            foreach (var playlist in playlists)
-            {
-                playlist.Remove();
-            }
+            XElement.RemoveAll();
         }
 
         /* SAVE XML FILE TO FILENAME */
