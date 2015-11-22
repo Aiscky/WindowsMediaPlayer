@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
+using WindowsMediaPlayer.XML;
 
 namespace WindowsMediaPlayer.ViewModel
 {
@@ -18,7 +19,6 @@ namespace WindowsMediaPlayer.ViewModel
         /* PUBLIC */
 
         public ObservableCollection<Model.Video> VideoList { get; set; }
-        public CollectionViewSource VideoViewList { get; set; }
 
         static private VideoViewModel instance = null;
 
@@ -32,6 +32,18 @@ namespace WindowsMediaPlayer.ViewModel
             LoadVideoDirectory(Environment.GetFolderPath(Environment.SpecialFolder.MyVideos));
             if (System.IO.Directory.Exists(@"C:\Users\Public\Videos"))
                 LoadVideoDirectory(@"C:\Users\Public\Videos");
+
+            /*Console.WriteLine("SIZE : " + VideoList.Count + "\n\n");
+            foreach (Model.Video video in VideoList)
+            {
+                Console.WriteLine("Path : " + video.Path + "\n\n");
+            }*/
+
+            /*XMLMedia XMLVideo = new XMLMedia();
+            XMLVideo.LoadXML("Video.XML");
+            XMLVideo.AddMedia(this.VideoList[0]);
+            XMLVideo.WriteXML("Video.XML");*/
+            Console.WriteLine(System.IO.File.ReadAllText("Video.XML"));
         }
 
         public static VideoViewModel getInstance()
